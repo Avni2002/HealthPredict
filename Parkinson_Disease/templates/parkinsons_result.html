@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Parkinson's Prediction Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f3f4f7, #d8e2f0);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    .result-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      width: 90%;
+      max-width: 600px;
+      padding: 2rem;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .title {
+      font-size: 1.8rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+
+    .alert-box {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .high-risk {
+      background-color: #ffe6e6;
+      color: #e74c3c;
+    }
+
+    .low-risk {
+      background-color: #e6fff2;
+      color: #27ae60;
+    }
+
+    .recommendation {
+      text-align: left;
+      background-color: #f9f9f9;
+      padding: 1.5rem;
+      border-radius: 10px;
+      color: #2c3e50;
+      font-size: 1rem;
+      line-height: 1.6;
+      width: 100%;
+    }
+
+    .recommendation h3 {
+      margin-bottom: 0.5rem;
+      color: #34495e;
+    }
+
+    .back-button {
+      text-decoration: none;
+      background-color: #3498db;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-container">
+    <h2 class="title">Parkinson's Disease Prediction Result</h2>
+
+    <div class="alert-box {% if 'High Risk' in prediction %}high-risk{% elif 'Low Risk' in prediction %}low-risk{% endif %}">
+      {{ prediction }}
+    </div>
+
+    <div class="recommendation">
+      <h3>Recommendations</h3>
+      <p>
+        {% if prediction == 1 %}
+          ⚠️ Based on the data, you're at risk of Parkinson's disease. It's important to consult a neurologist for further evaluation and possible treatment. Early medical intervention can significantly improve quality of life. Engage in physical therapy, mental stimulation activities, and maintain a balanced diet.
+        {% else %}
+          ✅ You're at low risk for Parkinson's disease. Continue maintaining a healthy lifestyle with regular physical activity, cognitive engagement, and nutritious food. Periodic health check-ups can help track neurological health.
+        {% endif %}
+      </p>
+    </div>
+
+    <a href="{{ url_for('parkinsons.parkinsons_predict') }}" class="back-button">← Check Another Patient</a>
+  </div>
+</body>
+</html>

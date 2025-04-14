@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Heart Disease Prediction Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f3f4f7, #d8e2f0);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .result-container {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .result-message {
+      padding: 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      margin: 1rem 0;
+    }
+
+    .high-risk {
+      background-color: #ffe6e6;
+      color: #e74c3c;
+    }
+
+    .low-risk {
+      background-color: #e6fff2;
+      color: #27ae60;
+    }
+
+    .error {
+      background-color: #fef3c7;
+      color: #b45309;
+    }
+
+    .back-button {
+      text-decoration: none;
+      background-color: #3498db;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+
+    .recommendation {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .recommendation h3 {
+      color: #34495e;
+      margin-bottom: 0.5rem;
+    }
+
+    .recommendation p {
+      color: #2c3e50;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="result-container">
+    <h1>Heart Disease Prediction Result</h1>
+    <div class="result-message 
+        {% if 'High Risk' in prediction %}high-risk
+        {% elif 'Low Risk' in prediction %}low-risk
+        {% else %}error
+        {% endif %}">
+      {{ prediction }}
+    </div>
+    <a href="{{ url_for('heart.heart_predict') }}" class="back-button">← Check Another Patient</a>
+  </div>
+
+  <div class="recommendation">
+    <h3>What You Should Do:</h3>
+    <p>
+      {% if 'High Risk' in prediction %}
+        ❤️ You may be at high risk of heart disease. It's strongly advised to consult a cardiologist. Adopt a heart-healthy diet (low salt, low fat), exercise regularly, avoid tobacco and alcohol, and monitor your blood pressure and cholesterol levels frequently.
+      {% elif 'Low Risk' in prediction %}
+        ✅ You seem to be at low risk for heart disease. Continue maintaining a balanced lifestyle, including healthy eating, regular physical activity, stress management, and routine health checkups.
+      {% else %}
+        ⚠️ We couldn't determine your risk level accurately. Please review your inputs or try again later.
+      {% endif %}
+    </p>
+  </div>
+
+</body>
+</html>

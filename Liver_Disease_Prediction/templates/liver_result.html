@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Liver Disease Prediction Result</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f3f4f7, #d8e2f0);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .result-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 800px;
+      width: 90%;
+      padding: 2rem;
+    }
+
+    .prediction-card, .recommendation {
+      background-color: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      text-align: center;
+    }
+
+    .prediction-card h2 {
+      font-size: 1.6rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+
+    .alert-box {
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .alert-box.high-risk {
+      background-color: #ffe6e6;
+      color: #e74c3c;
+    }
+
+    .alert-box.low-risk {
+      background-color: #e6fff2;
+      color: #27ae60;
+    }
+
+    .recommendation h3 {
+      font-size: 1.3rem;
+      color: #34495e;
+      margin-bottom: 0.5rem;
+    }
+
+    .recommendation p {
+      font-size: 1rem;
+      color: #2c3e50;
+      line-height: 1.6;
+    }
+
+    .back-button {
+      text-decoration: none;
+      background-color: #3498db;
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .back-button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-container">
+    
+    <div class="prediction-card">
+      <h2>Liver Disease Prediction Result</h2>
+      <div class="alert-box {% if prediction == 1 %}high-risk{% else %}low-risk{% endif %}">
+        {% if prediction == 1 %}
+          ⚠️ High Risk of Liver Disease
+        {% else %}
+          ✅ Low Risk of Liver Disease
+        {% endif %}
+      </div>
+      <a href="{{ url_for('liver.liver_predict') }}" class="back-button">← Check Another Patient</a>
+    </div>
+
+    <div class="recommendation">
+      <h3>Recommendations</h3>
+      <p>
+        {% if prediction == 1 %}
+          ⚠️ You may be at risk of liver disease. Please consult a hepatologist. Avoid alcohol, processed foods, and self-medication. Maintain a liver-friendly diet and go for routine liver function tests (LFTs).
+        {% else %}
+          ✅ You're at low risk. Continue with a healthy lifestyle: stay hydrated, eat a balanced diet, avoid excessive alcohol or medications, and monitor your liver health yearly.
+        {% endif %}
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>
